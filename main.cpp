@@ -9,7 +9,7 @@
 #include <iostream>
 #include "glsl.h"
 #include <time.h>
-#include "glm/glm.h"
+#include "GLM/glm.h"
 
 //-----------------------------------------------------------------------------
 
