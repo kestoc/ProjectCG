@@ -26,7 +26,12 @@ protected:
    float timer010;  // timer counting 0->1->0
    bool bUp;        // flag if counting up or down.
    /*Objeto3D mallas[CANT_MESHES];*/
-   GLMmodel* objmodel_ptr;
+   GLMmodel* objmodel_casa;
+   GLMmodel* objmodel_man;
+   GLMmodel* objmodel_Terreno;
+   GLMmodel* objmodel_mioStation;
+   GLMmodel* objmodel_MtFuji;
+   GLMmodel* objmodel_CyberpunkDeLorean;
 
 public:
 	myWindow(){}
@@ -41,7 +46,12 @@ public:
          glRotatef(timer010*360, 0.5, 1.0f, 0.1f);
          //glutSolidTeapot(1.0);
 
-         glmDraw(objmodel_ptr, GLM_SMOOTH);
+         glmDraw(objmodel_casa, GLM_SMOOTH);
+         glmDraw(objmodel_man, GLM_SMOOTH);
+         glmDraw(objmodel_Terreno, GLM_SMOOTH);
+         glmDraw(objmodel_mioStation, GLM_SMOOTH);
+         glmDraw(objmodel_MtFuji, GLM_SMOOTH);
+         glmDraw(objmodel_CyberpunkDeLorean, GLM_SMOOTH);
          /*mallas[0].drawMeshe(0.0, 0.0, 0.0);*/
 
       if (shader) shader->end();
@@ -63,16 +73,61 @@ public:
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_DEPTH_TEST);
 
-        objmodel_ptr = NULL;
-        if (!objmodel_ptr)
+        objmodel_casa = NULL;
+        if (!objmodel_casa)
         {
-            objmodel_ptr = glmReadOBJ("./modelos/MtFuji.obj");
-            if (!objmodel_ptr)
+            objmodel_casa = glmReadOBJ("./modelos/casa.obj");
+            if (!objmodel_casa)
                 exit(0);
 
-            glmUnitize(objmodel_ptr);
-            glmFacetNormals(objmodel_ptr);
-            glmVertexNormals(objmodel_ptr, 90.0);
+            glmUnitize(objmodel_casa);
+            glmFacetNormals(objmodel_casa);
+            glmVertexNormals(objmodel_casa, 90.0);
+        }
+
+        objmodel_man = NULL;
+        if (!objmodel_man)
+        {
+            objmodel_man = glmReadOBJ("./modelos/man.obj");
+            if (!objmodel_man)
+                exit(0);
+
+            glmUnitize(objmodel_man);
+            glmFacetNormals(objmodel_man);
+            glmVertexNormals(objmodel_man, 90.0);
+        }
+        objmodel_Terreno = NULL;
+        if (!objmodel_Terreno)
+        {
+            objmodel_Terreno = glmReadOBJ("./modelos/Terreno.obj");
+            if (!objmodel_Terreno)
+                exit(0);
+
+            glmUnitize(objmodel_Terreno);
+            glmFacetNormals(objmodel_Terreno);
+            glmVertexNormals(objmodel_Terreno, 90.0);
+        }
+        objmodel_MtFuji = NULL;
+        if (!objmodel_MtFuji)
+        {
+            objmodel_MtFuji = glmReadOBJ("./modelos/MtFuji.obj");
+            if (!objmodel_MtFuji)
+                exit(0);
+
+            glmUnitize(objmodel_MtFuji);
+            glmFacetNormals(objmodel_MtFuji);
+            glmVertexNormals(objmodel_MtFuji, 90.0);
+        }
+        objmodel_CyberpunkDeLorean = NULL;
+        if (!objmodel_CyberpunkDeLorean)
+        {
+            objmodel_CyberpunkDeLorean = glmReadOBJ("./modelos/CyberpunkDeLorean.obj");
+            if (!objmodel_CyberpunkDeLorean)
+                exit(0);
+
+            glmUnitize(objmodel_CyberpunkDeLorean);
+            glmFacetNormals(objmodel_CyberpunkDeLorean);
+            glmVertexNormals(objmodel_CyberpunkDeLorean, 90.0);
         }
 
         /*for (int i = 0; i < CANT_MESHES; i++) {
