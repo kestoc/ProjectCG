@@ -17,5 +17,5 @@ void Objeto3D::openMeshe(char* meshe){
 void Objeto3D::drawMeshe(float _x, float _y, float _z){
     x = _x, y = _y, z = _z;
     glTranslatef(x,y,z);
-    glmDraw(objmodel_ptr, GLM_SMOOTH | GLM_MATERIAL);
+    glmDraw(objmodel_ptr, GLM_SMOOTH);
 }

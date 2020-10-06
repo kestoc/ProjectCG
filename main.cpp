@@ -25,13 +25,12 @@ protected:
    clock_t time0,time1;
    float timer010;  // timer counting 0->1->0
    bool bUp;        // flag if counting up or down.
-   Objeto3D mallas[CANT_MESHES];
-   Objeto3D malla;
+   /*Objeto3D mallas[CANT_MESHES];*/
    GLMmodel* objmodel_ptr;
 
 public:
 	myWindow(){}
-    
+
 	virtual void OnRender(void)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -42,8 +41,8 @@ public:
          glRotatef(timer010*360, 0.5, 1.0f, 0.1f);
          //glutSolidTeapot(1.0);
 
-         glmDraw(objmodel_ptr, GLM_SMOOTH | GLM_MATERIAL);
-         //meshes[4].drawMeshe(0.0, 0.0, 0.0);
+         glmDraw(objmodel_ptr, GLM_SMOOTH);
+         /*mallas[0].drawMeshe(0.0, 0.0, 0.0);*/
 
       if (shader) shader->end();
       glutSwapBuffers();
@@ -67,7 +66,7 @@ public:
         objmodel_ptr = NULL;
         if (!objmodel_ptr)
         {
-            objmodel_ptr = glmReadOBJ("./modelos/casa.obj");
+            objmodel_ptr = glmReadOBJ("./modelos/MtFuji.obj");
             if (!objmodel_ptr)
                 exit(0);
 
@@ -79,7 +78,7 @@ public:
         /*for (int i = 0; i < CANT_MESHES; i++) {
             switch (i) {
                 case 0:
-                    mallas[i].openMeshe("./meshes/terreno.obj");
+                    mallas[i].openMeshe("./meshes/Terreno.obj");
                     break;
                 case 1:
                     mallas[i].openMeshe("./meshes/MtFuji.obj");
