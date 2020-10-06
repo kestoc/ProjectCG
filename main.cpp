@@ -106,7 +106,7 @@ public:
             glmFacetNormals(objmodel_casa);
             glmVertexNormals(objmodel_casa, 90.0);
         }
-
+        
         objmodel_man = NULL;
         if (!objmodel_man)
         {
@@ -212,7 +212,7 @@ public:
 	
 	   glViewport(0, 0, w, h);
 
-      gluPerspective(45,ratio,1,100);
+      gluPerspective(100,ratio,1,100);
 	   glMatrixMode(GL_MODELVIEW);
 	   glLoadIdentity();
 	   gluLookAt(0.0f,0.0f,4.0f, 
