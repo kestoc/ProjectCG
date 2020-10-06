@@ -118,6 +118,17 @@ public:
             glmFacetNormals(objmodel_MtFuji);
             glmVertexNormals(objmodel_MtFuji, 90.0);
         }
+        objmodel_mioStation = NULL;
+        if (!objmodel_mioStation)
+        {
+            objmodel_mioStation = glmReadOBJ("./modelos/mioStation.obj");
+            if (!objmodel_mioStation)
+                exit(0);
+
+            glmUnitize(objmodel_mioStation);
+            glmFacetNormals(objmodel_mioStation);
+            glmVertexNormals(objmodel_mioStation, 90.0);
+        }
         objmodel_CyberpunkDeLorean = NULL;
         if (!objmodel_CyberpunkDeLorean)
         {
