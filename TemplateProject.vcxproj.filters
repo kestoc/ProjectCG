@@ -78,6 +78,9 @@
     <ClInclude Include="glm\glm.h">
       <Filter>GLM</Filter>
     </ClInclude>
+    <ClInclude Include="Objeto3D.h">
+      <Filter>Clases</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c">
@@ -164,6 +167,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="glm\glm.cpp">
       <Filter>GLM</Filter>
+    </ClCompile>
+    <ClCompile Include="Objeto3D.cpp">
+      <Filter>Clases</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
