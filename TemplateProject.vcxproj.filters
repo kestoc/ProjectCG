@@ -28,6 +28,12 @@
     <Filter Include="cwc\source">
       <UniqueIdentifier>{eb32105d-08a6-4ea4-81bd-283e4a9c691a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GLM">
+      <UniqueIdentifier>{19de7d52-cca5-422d-9108-81143261e0b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Clases">
+      <UniqueIdentifier>{540a0d37-9a06-4a77-bab4-da09cc23f264}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\Gl\glew.h">
@@ -68,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="cwc\include\glWindow.h">
       <Filter>cwc\include</Filter>
+    </ClInclude>
+    <ClInclude Include="glm\glm.h">
+      <Filter>GLM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +162,9 @@
       <Filter>cwc\source</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="glm\glm.cpp">
+      <Filter>GLM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="freeglut\source\freeglutdll.def">
