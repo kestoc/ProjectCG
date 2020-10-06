@@ -31,9 +31,6 @@
     <Filter Include="GLM">
       <UniqueIdentifier>{19de7d52-cca5-422d-9108-81143261e0b2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Clases">
-      <UniqueIdentifier>{540a0d37-9a06-4a77-bab4-da09cc23f264}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glew\include\Gl\glew.h">
@@ -78,9 +75,7 @@
     <ClInclude Include="glm\glm.h">
       <Filter>GLM</Filter>
     </ClInclude>
-    <ClInclude Include="Objeto3D.h">
-      <Filter>Clases</Filter>
-    </ClInclude>
+    <ClInclude Include="Objeto3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glew\source\glew.c">
@@ -168,9 +163,7 @@
     <ClCompile Include="glm\glm.cpp">
       <Filter>GLM</Filter>
     </ClCompile>
-    <ClCompile Include="Objeto3D.cpp">
-      <Filter>Clases</Filter>
-    </ClCompile>
+    <ClCompile Include="Objeto3D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="freeglut\source\freeglutdll.def">

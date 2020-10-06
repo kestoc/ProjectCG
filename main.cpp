@@ -9,7 +9,9 @@
 #include <iostream>
 #include "glsl.h"
 #include <time.h>
-#include "GLM/glm.h"
+#include "glm/glm.h"
+#include "Objeto3D.h"
+#define CANT_MESHES 6
 
 //-----------------------------------------------------------------------------
 
@@ -23,7 +25,9 @@ protected:
    clock_t time0,time1;
    float timer010;  // timer counting 0->1->0
    bool bUp;        // flag if counting up or down.
-
+   Objeto3D mallas[CANT_MESHES];
+   Objeto3D malla;
+   GLMmodel* objmodel_ptr;
 
 public:
 	myWindow(){}
@@ -36,7 +40,11 @@ public:
       glPushMatrix();
       if (shader) shader->begin();
          glRotatef(timer010*360, 0.5, 1.0f, 0.1f);
-         glutSolidTeapot(1.0);
+         //glutSolidTeapot(1.0);
+
+         glmDraw(objmodel_ptr, GLM_SMOOTH | GLM_MATERIAL);
+         //meshes[4].drawMeshe(0.0, 0.0, 0.0);
+
       if (shader) shader->end();
       glutSwapBuffers();
       glPopMatrix();
@@ -55,6 +63,41 @@ public:
 		glClearColor(0.5f, 0.5f, 1.0f, 0.0f);
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_DEPTH_TEST);
+
+        objmodel_ptr = NULL;
+        if (!objmodel_ptr)
+        {
+            objmodel_ptr = glmReadOBJ("./modelos/casa.obj");
+            if (!objmodel_ptr)
+                exit(0);
+
+            glmUnitize(objmodel_ptr);
+            glmFacetNormals(objmodel_ptr);
+            glmVertexNormals(objmodel_ptr, 90.0);
+        }
+
+        /*for (int i = 0; i < CANT_MESHES; i++) {
+            switch (i) {
+                case 0:
+                    mallas[i].openMeshe("./meshes/terreno.obj");
+                    break;
+                case 1:
+                    mallas[i].openMeshe("./meshes/MtFuji.obj");
+                    break;
+                case 2:
+                    mallas[i].openMeshe("./meshes/mioStation.obj");
+                    break;
+                case 3:
+                    mallas[i].openMeshe("./meshes/casa.obj");
+                    break;
+                case 4:
+                    mallas[i].openMeshe("./meshes/man.obj");
+                    break;
+                case 5:
+                    mallas[i].openMeshe("./meshes/CyberpunkDeLorean.obj");
+                    break;
+            }
+        }*/
 
 		shader = SM.loadfromFile("vertexshader.txt","fragmentshader.txt"); // load (and compile, link) from file
 		if (shader==0) 
