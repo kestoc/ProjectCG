@@ -43,15 +43,37 @@ public:
       //timer010 = 0.09; //for screenshot!
       glPushMatrix();
       if (shader) shader->begin();
-         glRotatef(timer010*360, 0.5, 1.0f, 0.1f);
+         //glRotatef(timer010*360, 0.5, 1.0f, 0.1f);
          //glutSolidTeapot(1.0);
-
+         glPushMatrix();
+         glScalef(3, 3, 3);
          glmDraw(objmodel_casa, GLM_SMOOTH);
+         glPopMatrix();
+
+         glPushMatrix();
+         glScalef(3, 3, 3);
          glmDraw(objmodel_man, GLM_SMOOTH);
+         glPopMatrix();
+
+         glPushMatrix();
+         glScalef(10, 0, 10);
          glmDraw(objmodel_Terreno, GLM_SMOOTH);
+         glPopMatrix();
+
+         glPushMatrix();
+         glScalef(3, 3, 3);
          glmDraw(objmodel_mioStation, GLM_SMOOTH);
+         glPopMatrix();
+
+         glPushMatrix();
+         glScalef(3, 3, 3);
          glmDraw(objmodel_MtFuji, GLM_SMOOTH);
+         glPopMatrix();
+
+         glPushMatrix();
+         glScalef(1, 1, 1);
          glmDraw(objmodel_CyberpunkDeLorean, GLM_SMOOTH);
+         glPopMatrix();
          /*mallas[0].drawMeshe(0.0, 0.0, 0.0);*/
 
       if (shader) shader->end();
