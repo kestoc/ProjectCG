@@ -28,85 +28,6 @@ protected:
     Objeto3D* mallas[CANT_MESHES];   //Arreglo de las mallas
 
 public:
-<<<<<<< HEAD
-	myWindow(){}
-
-	virtual void OnRender(void)
-	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-      //timer010 = 0.09; //for screenshot!
-      glPushMatrix();
-      if (shader) shader->begin();
-         glRotatef(timer010*360, 0.5, 1.0f, 0.1f); 
-         //glutSolidTeapot(1.0);
-         glPushMatrix();
-         glScalef(0.5, 0.5, 0.5);
-         glTranslatef(-5, 2, 0);
-         glmDraw(objmodel_casa, GLM_SMOOTH);
-         glPopMatrix();
-
-         glPushMatrix();
-         glScalef(0.3, 0.3, 0.3);
-         glTranslatef(-8, 4, 0);
-         glmDraw(objmodel_man, GLM_SMOOTH);
-         glPopMatrix();
-
-         glPushMatrix();
-         glScalef(1, 1, 1);
-         glTranslatef(0, 0, 0);
-         glmDraw(objmodel_Terreno, GLM_SMOOTH);
-         glPopMatrix();
-
-         glPushMatrix();
-         glScalef(2, 2, 2);
-         glTranslatef(2, 0, 0);
-         glmDraw(objmodel_mioStation, GLM_SMOOTH);
-         glPopMatrix();
-
-         glPushMatrix();
-         glScalef(3, 10, 3);
-         glTranslatef(-1, 0, 0);
-         glmDraw(objmodel_MtFuji, GLM_SMOOTH);
-         glPopMatrix();
-
-         glPushMatrix();
-         glScalef(1, 1, 1);
-         glTranslatef(1000000, 0, -1000);
-         glmDraw(objmodel_CyberpunkDeLorean, GLM_SMOOTH);
-         glPopMatrix();
-         /*mallas[0].drawMeshe(0.0, 0.0, 0.0);*/
-
-      if (shader) shader->end();
-      glutSwapBuffers();
-      glPopMatrix();
-
-      UpdateTimer();
-
-		Repaint();
-	}
-
-	virtual void OnIdle() {}
-
-	// When OnInit is called, a render context (in this case GLUT-Window) 
-	// is already available!
-	virtual void OnInit()
-	{
-		glClearColor(0.5f, 0.5f, 1.0f, 0.0f);
-		glShadeModel(GL_SMOOTH);
-		glEnable(GL_DEPTH_TEST);
-
-        objmodel_casa = NULL;
-        if (!objmodel_casa)
-        {
-            objmodel_casa = glmReadOBJ("./modelos/casa.obj");
-            if (!objmodel_casa)
-                exit(0);
-
-            glmUnitize(objmodel_casa);
-            glmFacetNormals(objmodel_casa);
-            glmVertexNormals(objmodel_casa, 90.0);
-=======
     myWindow() {}
 
     virtual void OnRender(void)
@@ -117,21 +38,51 @@ public:
         glPushMatrix();
         if (shader) shader->begin();
         //Traslacion y rotacion general de los objetos para visualizar de buena forma el escenario
-        glTranslatef(0, -0.5, 0);
-        glRotatef(45, 1, 0, 0);
+       glRotatef(timer010 * 360, 0.5, 1.0f, 0.1f);
 
         //Dibujando cada malla y realizandole los cambios a cada una
+        //house
         glPushMatrix();
         glScalef(0.5, 0.5, 0.5);
-        glTranslatef(-5, 5, 0);
+        glTranslatef(-4.5, 3, 0);
         mallas[3]->drawMeshe(0.0, 0.0, 0.0);
         glPopMatrix();
 
+        //man
         glPushMatrix();
-        glScalef(0.5, 0.5, 0.5);
-        glTranslatef(-5, 5.5, 0);
+        glScalef(0.3, 0.3, 0.3);
+        glTranslatef(-7.5, 6.5, 0);
         mallas[4]->drawMeshe(0.0, 0.0, 0.0);
         glPopMatrix();
+
+        //mountain
+        glPushMatrix();
+        glScalef(3, 10, 3);
+        glTranslatef(-1, 0.13, 0);
+        mallas[1]->drawMeshe(0.0, 0.0, 0.0);
+        glPopMatrix();
+
+        //road
+        glPushMatrix();
+        glScalef(1, 1, 5);
+        glTranslatef(0, 0, 0);
+        mallas[0]->drawMeshe(0.0, 0.0, 0.0);
+        glPopMatrix();
+
+        //mio
+        glPushMatrix();
+        glScalef(1, 1, 1);
+        glTranslatef(1, 1, 0);
+        mallas[2]->drawMeshe(0.0, 0.0, 0.0);
+        glPopMatrix();
+
+        //car
+        glPushMatrix();
+        glScalef(0.3, 0.3, 0.3);
+        glTranslatef(-8, 6, 0);
+        mallas[5]->drawMeshe(0.0, 0.0, 0.0);
+        glPopMatrix();
+
 
         if (shader) shader->end();
         glutSwapBuffers();
@@ -174,7 +125,6 @@ public:
                 mallas[i] = new Objeto3D("./modelos/CyberpunkDeLorean.obj");
                 break;
             }
->>>>>>> 5201e73abd4032df2ec9b35e41f2ae33b64313fd
         }
 
         shader = SM.loadfromFile("vertexshader.txt", "fragmentshader.txt"); // load (and compile, link) from file
