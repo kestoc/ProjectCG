@@ -1,6 +1,6 @@
 #include "Objeto3D.h"
 
-void Objeto3D::openMeshe(char* meshe){
+Objeto3D::Objeto3D(char* meshe) {
     objmodel_ptr = NULL;
     if (!objmodel_ptr)
     {
@@ -14,8 +14,8 @@ void Objeto3D::openMeshe(char* meshe){
     }
 }
 
-void Objeto3D::drawMeshe(float _x, float _y, float _z){
+void Objeto3D::drawMeshe(float _x, float _y, float _z) {
     x = _x, y = _y, z = _z;
-    glTranslatef(x,y,z);
+    glTranslatef(x, y, z);
     glmDraw(objmodel_ptr, GLM_SMOOTH);
 }
