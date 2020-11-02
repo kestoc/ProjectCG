@@ -27,15 +27,39 @@ protected:
     bool bUp;        // flag if counting up or down.
     Objeto3D* mallas[CANT_MESHES];   //Arreglo de las mallas
     float posCarX, posCarY, posCarZ; //Variables para mover el carro en el escenario
+    bool movIzqX, movDerX, movArribaY, movAbajoY, movAtrasZ, movDelanteZ; 
 
 public:
     myWindow() {}
+    
+    //Funcion para cambiar los valores de posicion del carro en sus respectivos ejes
+    void moverCarro() {
+        if (movIzqX) {
+            posCarX -= 0.1;
+        }
+        if (movDerX) {
+            posCarX += 0.1;
+        }
+        if (movAbajoY) {
+            posCarY -= 0.1;
+        }
+        if (movArribaY) {
+            posCarY += 0.1;
+        }
+        if (movAtrasZ) {
+            posCarZ -= 0.1;
+        }
+        if (movDelanteZ) {
+            posCarZ += 0.1;
+        }
+    }
 
     virtual void OnRender(void)
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //timer010 = 0.09; //for screenshot!
+        moverCarro();
 
         glPushMatrix();
         if (shader) shader->begin();
@@ -77,7 +101,7 @@ public:
         //car
         glPushMatrix();
         glScalef(0.3, 0.3, 0.3);
-        mallas[5]->drawMeshe(-8, 6, 0.0);
+        mallas[5]->drawMeshe(posCarX, posCarY, posCarZ); //Aplicando el movimiento al carro
         glPopMatrix();
 
 
@@ -99,6 +123,17 @@ public:
         glClearColor(0.5f, 0.5f, 1.0f, 0.0f);
         glShadeModel(GL_SMOOTH);
         glEnable(GL_DEPTH_TEST);
+
+        //Inicializar las variables para mover el carro
+        posCarX = -8;
+        posCarY = 6;
+        posCarZ = 0;
+        movIzqX = false;
+        movDerX = false;
+        movArribaY = false;
+        movAbajoY = false;
+        movAtrasZ = false;
+        movDelanteZ = false;
 
         //Abrir las mallas y almacenarlas en un arreglo
         for (int i = 0; i < CANT_MESHES; i++) {
@@ -168,14 +203,54 @@ public:
         {
             this->Close(); // Close Window!
         }
+        //Saber si se presiono la tecla para mover el carro. W y S minusculas mueven el carro en el eje Y de OpenGL, mientras que
+        //W y S en mayusculas lo mueven en el eje Z de OpenGL, A y D minusculas son para moverlo en el eje X de OpenGL.
+        else if (cAscii == 'w') {
+            movArribaY = true;
+        }
+        else if (cAscii == 's') {
+            movAbajoY = true;
+        }
+        else if (cAscii == 'a') {
+            movIzqX = true;
+        }
+        else if (cAscii == 'd') {
+            movDerX = true;
+        }
+        else if (cAscii == 'W') {
+            movDelanteZ = true;
+        }
+        else if (cAscii == 'S') {
+            movAtrasZ = true;
+        }
     };
 
     virtual void OnKeyUp(int nKey, char cAscii)
     {
-        if (cAscii == 's')      // s: Shader
+        if (cAscii == 'z')      // s: Shader
             shader->enable();
         else if (cAscii == 'f') // f: Fixed Function
             shader->disable();
+        //Saber si se dejo de presionar la tecla para mover el carro. W y S minusculas mueven el carro en el eje Y de OpenGL, mientras que
+        //W y S en mayusculas lo mueven en el eje Z de OpenGL, A y D minusculas son para moverlo en el eje X de OpenGL.
+        else if (cAscii == 'w') {
+            movArribaY = false;
+        }
+        else if (cAscii == 's') {
+            movAbajoY = false;
+        }
+        else if (cAscii == 'a') {
+            movIzqX = false;
+        }
+        else if (cAscii == 'd') {
+            movDerX = false;
+        }
+        else if (cAscii == 'W') {
+            movDelanteZ = false;
+        }
+        else if (cAscii == 'S') {
+            movAtrasZ = false;
+        }
     }
 
     void UpdateTimer()

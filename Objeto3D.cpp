@@ -16,6 +16,9 @@ Objeto3D::Objeto3D(char* meshe) {
 
 void Objeto3D::drawMeshe(float _x, float _y, float _z) {
     x = _x, y = _y, z = _z;
+
+    glPushMatrix();
     glTranslatef(x, y, z);
     glmDraw(objmodel_ptr, GLM_SMOOTH);
+    glPopMatrix();
 }
