@@ -26,6 +26,7 @@ protected:
     float timer010;  // timer counting 0->1->0
     bool bUp;        // flag if counting up or down.
     Objeto3D* mallas[CANT_MESHES];   //Arreglo de las mallas
+    float posCarX, posCarY, posCarZ; //Variables para mover el carro en el escenario
 
 public:
     myWindow() {}
@@ -35,52 +36,48 @@ public:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //timer010 = 0.09; //for screenshot!
+
         glPushMatrix();
         if (shader) shader->begin();
-        //Traslacion y rotacion general de los objetos para visualizar de buena forma el escenario
-       glRotatef(timer010 * 360, 0.5, 1.0f, 0.1f);
+
+        //Rotacion de la camara para visualizar de buena forma el escenario
+        glRotatef(45, 0.5, 0, 0);
 
         //Dibujando cada malla y realizandole los cambios a cada una
         //house
         glPushMatrix();
         glScalef(0.5, 0.5, 0.5);
-        glTranslatef(-4.5, 3, 0);
-        mallas[3]->drawMeshe(0.0, 0.0, 0.0);
+        mallas[3]->drawMeshe(-4.5, 3, 0.0);
         glPopMatrix();
 
         //man
         glPushMatrix();
         glScalef(0.3, 0.3, 0.3);
-        glTranslatef(-7.5, 6.5, 0);
-        mallas[4]->drawMeshe(0.0, 0.0, 0.0);
+        mallas[4]->drawMeshe(-7.0, 6.5, 0.0);
         glPopMatrix();
 
         //mountain
         glPushMatrix();
         glScalef(3, 10, 3);
-        glTranslatef(-1, 0.13, 0);
-        mallas[1]->drawMeshe(0.0, 0.0, 0.0);
+        mallas[1]->drawMeshe(-1, 0.13, 0.0);
         glPopMatrix();
 
         //road
         glPushMatrix();
-        glScalef(1, 1, 5);
-        glTranslatef(0, 0, 0);
+        glScalef(1, 1, 4);
         mallas[0]->drawMeshe(0.0, 0.0, 0.0);
         glPopMatrix();
 
         //mio
         glPushMatrix();
         glScalef(1, 1, 1);
-        glTranslatef(1, 1, 0);
-        mallas[2]->drawMeshe(0.0, 0.0, 0.0);
+        mallas[2]->drawMeshe(1, 1, 0.0);
         glPopMatrix();
 
         //car
         glPushMatrix();
         glScalef(0.3, 0.3, 0.3);
-        glTranslatef(-8, 6, 0);
-        mallas[5]->drawMeshe(0.0, 0.0, 0.0);
+        mallas[5]->drawMeshe(-8, 6, 0.0);
         glPopMatrix();
 
 
