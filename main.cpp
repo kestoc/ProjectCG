@@ -317,10 +317,10 @@ public:
         GLfloat light_Kd[] = { 1.0f, 0.1f, 0.1f, 1.0f };
         GLfloat light_Ks[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-        glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
+        /*glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
         glLightfv(GL_LIGHT0, GL_AMBIENT, light_Ka);
         glLightfv(GL_LIGHT0, GL_DIFFUSE, light_Kd);
-        glLightfv(GL_LIGHT0, GL_SPECULAR, light_Ks);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, light_Ks);*/
 
         // -------------------------------------------
         // Material parameters:
@@ -331,11 +331,11 @@ public:
         GLfloat material_Ke[] = { 0.1f, 0.0f, 0.0f, 0.0f };
         GLfloat material_Se = 20.0f;
 
-        glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, material_Ka);
+        /*glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, material_Ka);
         glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, material_Kd);
         glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, material_Ks);
         glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, material_Ke);
-        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, material_Se);
+        glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, material_Se);*/
     }
 };
 
