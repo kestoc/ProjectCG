@@ -26,11 +26,39 @@ protected:
     float timer010;  // timer counting 0->1->0
     bool bUp;        // flag if counting up or down.
     Objeto3D* mallas[CANT_MESHES];   //Arreglo de las mallas
+
     float posCarX, posCarY, posCarZ; //Variables para mover el carro en el escenario
     bool movIzqX, movDerX, movArribaY, movAbajoY, movAtrasZ, movDelanteZ; 
 
+    float posCamX, posCamY, posCamZ; // Variables para mover la camara en el escenario
+    bool movIzqCX, movDerCX, movArribaCY, movAbajoCY, movAtrasCZ, movDelanteCZ;
+
 public:
     myWindow() {}
+
+    //Funcion para cambiar los valores de posicion de la camara
+    void moverCamara() {
+        if (movIzqCX) {
+            posCamX += 0.1;
+        }
+        if (movDerCX) {
+            posCamX -= 0.1;
+        }
+        if (movAbajoCY) {
+            posCamY += 0.1;
+        }
+        if (movArribaCY) {
+            posCamY -= 0.1;
+        }
+        if (movAtrasCZ) {
+            posCamZ -= 0.1;
+        }
+        if (movDelanteCZ) {
+            posCamZ += 0.1;
+        }
+
+        glTranslatef(posCamX,posCamY,posCamZ);
+    }
     
     //Funcion para cambiar los valores de posicion del carro en sus respectivos ejes
     void moverCarro() {
@@ -59,9 +87,12 @@ public:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //timer010 = 0.09; //for screenshot!
-        moverCarro();
 
         glPushMatrix();
+
+        moverCarro();
+        moverCamara();
+
         if (shader) shader->begin();
 
         //Rotacion de la camara para visualizar de buena forma el escenario
@@ -123,6 +154,17 @@ public:
         glClearColor(0.5f, 0.5f, 1.0f, 0.0f);
         glShadeModel(GL_SMOOTH);
         glEnable(GL_DEPTH_TEST);
+
+        //Inicializar las variables para mover la camara
+        posCamX = 0;
+        posCamY = 0;
+        posCamZ = 0;
+        movIzqCX = false;
+        movDerCX = false;
+        movArribaCY = false;
+        movAbajoCY = false;
+        movAtrasCZ = false;
+        movDelanteCZ = false;
 
         //Inicializar las variables para mover el carro
         posCarX = -8;
@@ -203,6 +245,7 @@ public:
         {
             this->Close(); // Close Window!
         }
+
         //Saber si se presiono la tecla para mover el carro. W y S minusculas mueven el carro en el eje Y de OpenGL, mientras que
         //W y S en mayusculas lo mueven en el eje Z de OpenGL, A y D minusculas son para moverlo en el eje X de OpenGL.
         else if (cAscii == 'w') {
@@ -223,6 +266,27 @@ public:
         else if (cAscii == 'S') {
             movAtrasZ = true;
         }
+
+        //Camara. I y K minusculas mueven el carro en el eje Y de OpenGL, mientras que
+        //I y K en mayusculas lo mueven en el eje Z de OpenGL, J y L minusculas son para moverlo en el eje X de OpenGL.
+        else if (cAscii == 'i') {
+            movArribaCY = true;
+        }
+        else if (cAscii == 'k') {
+            movAbajoCY = true;
+        }
+        else if (cAscii == 'j') {
+            movIzqCX = true;
+        }
+        else if (cAscii == 'l') {
+            movDerCX = true;
+        }
+        else if (cAscii == 'I') {
+            movDelanteCZ = true;
+        }
+        else if (cAscii == 'K') {
+            movAtrasCZ = true;
+        }
     };
 
     virtual void OnKeyUp(int nKey, char cAscii)
@@ -231,6 +295,7 @@ public:
             shader->enable();
         else if (cAscii == 'f') // f: Fixed Function
             shader->disable();
+
         //Saber si se dejo de presionar la tecla para mover el carro. W y S minusculas mueven el carro en el eje Y de OpenGL, mientras que
         //W y S en mayusculas lo mueven en el eje Z de OpenGL, A y D minusculas son para moverlo en el eje X de OpenGL.
         else if (cAscii == 'w') {
@@ -250,6 +315,27 @@ public:
         }
         else if (cAscii == 'S') {
             movAtrasZ = false;
+        }
+
+        //Camara. I y K minusculas mueven el carro en el eje Y de OpenGL, mientras que
+        //I y K en mayusculas lo mueven en el eje Z de OpenGL, J y L minusculas son para moverlo en el eje X de OpenGL.
+        else if (cAscii == 'i') {
+            movArribaCY = false;
+        }
+        else if (cAscii == 'k') {
+            movAbajoCY = false;
+        }
+        else if (cAscii == 'j') {
+            movIzqCX = false;
+        }
+        else if (cAscii == 'l') {
+            movDerCX = false;
+        }
+        else if (cAscii == 'I') {
+            movDelanteCZ = false;
+        }
+        else if (cAscii == 'K') {
+            movAtrasCZ = false;
         }
     }
 
