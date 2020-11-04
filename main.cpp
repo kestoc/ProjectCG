@@ -11,6 +11,7 @@
 #include <time.h>
 #include "glm/glm.h"
 #include "Objeto3D.h"
+#include <FreeImage.h>
 #define CANT_MESHES 6
 
 //-----------------------------------------------------------------------------
@@ -20,7 +21,7 @@ class myWindow : public cwc::glutWindow
 {
 protected:
     cwc::glShaderManager SM;
-    cwc::glShader* shader;
+    cwc::glShader* shader, * shader1;
     GLuint ProgramObject;
     clock_t time0, time1;
     float timer010;  // timer counting 0->1->0
@@ -28,13 +29,78 @@ protected:
     Objeto3D* mallas[CANT_MESHES];   //Arreglo de las mallas
 
     float posCarX, posCarY, posCarZ; //Variables para mover el carro en el escenario
-    bool movIzqX, movDerX, movArribaY, movAbajoY, movAtrasZ, movDelanteZ; 
+    bool movIzqX, movDerX, movArribaY, movAbajoY, movAtrasZ, movDelanteZ;
 
     float posCamX, posCamY, posCamZ; // Variables para mover la camara en el escenario
     bool movIzqCX, movDerCX, movArribaCY, movAbajoCY, movAtrasCZ, movDelanteCZ;
 
+    GLMmodel* objmodel_ptr1; //*** Para Textura: variable para objeto texturizado
+    GLuint texid;
+
 public:
     myWindow() {}
+
+    void initialize_textures(void)
+
+    {
+
+        int w, h;
+
+        GLubyte* data = 0;
+
+        //data = glmReadPPM("soccer_ball_diffuse.ppm", &w, &h);
+
+        //std::cout << "Read soccer_ball_diffuse.ppm, width = " << w << ", height = " << h << std::endl;
+
+
+
+        //dib1 = loadImage("soccer_ball_diffuse.jpg"); //FreeImage
+
+
+
+        glGenTextures(1, &texid);
+
+        glBindTexture(GL_TEXTURE_2D, texid);
+
+        glTexEnvi(GL_TEXTURE_2D, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+
+
+        // Loading JPG file
+
+        FIBITMAP* bitmap = FreeImage_Load(
+
+            FreeImage_GetFileType("./modelos/DeLorean.jpg", 0),
+
+            "./modelos/DeLorean.jpg");  //*** Para Textura: esta es la ruta en donde se encuentra la textura
+
+
+
+        FIBITMAP* pImage = FreeImage_ConvertTo32Bits(bitmap);
+
+        int nWidth = FreeImage_GetWidth(pImage);
+
+        int nHeight = FreeImage_GetHeight(pImage);
+
+
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, nWidth, nHeight,
+
+            0, GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(pImage));
+
+
+
+        FreeImage_Unload(pImage);
+
+        //
+
+        glEnable(GL_TEXTURE_2D);
+
+    }
 
     //Funcion para cambiar los valores de posicion de la camara
     void moverCamara() {
@@ -57,9 +123,9 @@ public:
             posCamZ += 0.1;
         }
 
-        glTranslatef(posCamX,posCamY,posCamZ);
+        glTranslatef(posCamX, posCamY, posCamZ);
     }
-    
+
     //Funcion para cambiar los valores de posicion del carro en sus respectivos ejes
     void moverCarro() {
         if (movIzqX) {
@@ -129,14 +195,30 @@ public:
         mallas[2]->drawMeshe(1, 1, 0.0);
         glPopMatrix();
 
+
+
+        if (shader) shader->end();
+
+        //--------------------------------------SHADER 1-------------------------------------------
+        if (shader1) shader1->begin();
+
+        //Rotacion de la camara para visualizar de buena forma el escenario
+       // glRotatef(45, 0.5, 0, 0);
+
+        //Dibujando cada malla y realizandole los cambios a cada una
+        //house
+
+
         //car
         glPushMatrix();
         glScalef(0.3, 0.3, 0.3);
+        glBindTexture(GL_TEXTURE_2D, texid);
         mallas[5]->drawMeshe(posCarX, posCarY, posCarZ); //Aplicando el movimiento al carro
         glPopMatrix();
 
 
-        if (shader) shader->end();
+        if (shader1) shader1->end();
+
         glutSwapBuffers();
         glPopMatrix();
 
@@ -208,11 +290,40 @@ public:
         {
             ProgramObject = shader->GetProgramObject();
         }
+        shader1 = SM.loadfromFile("vertexshaderT.txt", "fragmentshaderT.txt"); // load (and compile, link) from file
+        if (shader1 == 0)
+            std::cout << "Error Loading,nlnl compiling or linking shader\n";
+        else
+        {
+            ProgramObject = shader1->GetProgramObject();
+        }
 
         time0 = clock();
         timer010 = 0.0f;
         bUp = true;
 
+        objmodel_ptr1 = NULL;
+
+        if (!objmodel_ptr1)
+
+        {
+
+            objmodel_ptr1 = glmReadOBJ("./modelos/CyberpunkDeLorean.obj");
+
+            if (!objmodel_ptr1)
+
+                exit(0);
+
+
+
+            glmUnitize(objmodel_ptr1);
+
+            glmFacetNormals(objmodel_ptr1);
+
+            glmVertexNormals(objmodel_ptr1, 90.0);
+
+        }
+        initialize_textures();
         DemoLight();
 
     }

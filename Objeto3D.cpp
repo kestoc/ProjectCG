@@ -19,6 +19,6 @@ void Objeto3D::drawMeshe(float _x, float _y, float _z) {
    
     glPushMatrix();
     glTranslatef(x, y, z);
-    glmDraw(objmodel_ptr, GLM_SMOOTH | GLM_MATERIAL);
+    glmDraw(objmodel_ptr, GLM_SMOOTH | GLM_MATERIAL | GLM_TEXTURE);
     glPopMatrix();
 }
